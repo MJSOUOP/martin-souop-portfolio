@@ -7,18 +7,68 @@ import streamlit as st
 st.set_page_config(page_title="Portfolio – Martin Junior SOUOP", page_icon="📊", layout="wide")
 
 # --- Titre & couleurs globales ---
+# --- HERO (drop-in: remplace ton st.markdown(...) actuel par CE bloc) ---
 st.markdown("""
 <style>
-  .hero {
-    padding: 18px 22px; border-radius: 16px;
-    background: linear-gradient(90deg,#7C3AED,#06B6D4,#10B981);
-    color: white; font-weight: 800; font-size: 26px; letter-spacing:.3px;
-    box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  /* === Fond léger plein écran (waouh mais propre) === */
+  .bg-soft {
+    position: fixed; inset: 0; z-index: -1; background:#0b1020;
+    background:
+      radial-gradient(1200px 600px at 5% 10%, rgba(124,58,237,.18) 0%, transparent 60%),
+      radial-gradient(900px 500px at 95% 20%, rgba(34,197,94,.18) 0%, transparent 60%),
+      radial-gradient(1000px 600px at 40% 100%, rgba(6,182,212,.18) 0%, transparent 60%),
+      linear-gradient(180deg, #0b1020 0%, #0e1326 100%);
   }
-  .subhero { color: rgba(255,255,255,.92); font-weight:500; font-size:14px; margin-top:4px;}
+  /* === Conteneur hero === */
+  .hero-wrap { margin: 8px 0 10px 0; }
+  .hero {
+    padding: 26px 28px; border-radius: 20px;
+    background: linear-gradient(90deg,#7C3AED, #06B6D4, #10B981);
+    background-size: 200% 200%;
+    animation: slideGrad 8s ease-in-out infinite;
+    color: #fff; font-weight: 900; font-size: 44px; line-height: 1.2; letter-spacing:.3px;
+    box-shadow: 0 20px 40px rgba(16,185,129,.25), 0 6px 16px rgba(0,0,0,.35);
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .hero:after{ /* glow subtil intérieur */
+    content:""; position:absolute; inset:0; pointer-events:none;
+    box-shadow: inset 0 0 60px rgba(255,255,255,.15);
+    border-radius: 20px;
+  }
+  .subhero {
+    margin-top: 8px;
+    color: rgba(255,255,255,.98);
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing:.2px;
+    text-shadow: 0 2px 14px rgba(0,0,0,.35);
+  }
+  .subhero .focus {
+    padding: 2px 10px; border-radius: 999px;
+    background: rgba(255,255,255,.16);
+    box-shadow: 0 8px 18px rgba(0,0,0,.25);
+    border: 1px solid rgba(255,255,255,.25);
+  }
+  /* Anim grad */
+  @keyframes slideGrad { 0% {background-position: 0% 50%} 50% {background-position: 100% 50%} 100% {background-position: 0% 50%} }
+  /* Responsive */
+  @media (max-width: 768px){
+    .hero{ font-size: 32px; padding: 22px; }
+    .subhero{ font-size: 20px; }
+  }
+  /* Bonus: titres de sections un peu plus impactants */
+  .stMarkdown h3 { font-weight: 800; letter-spacing:.2px; }
 </style>
-<div class="hero">PORTFOLIO DE MARTIN — Data • Finance • SAP BI</div>
+<div class="bg-soft"></div>
+<div class="hero-wrap">
+  <div class="hero">
+    PORTFOLIO DE MARTIN — Data • Finance • Business
+    <div class="subhero"><span class="focus">Compétences techniques & commerciales</span> pour la performance</div>
+  </div>
+</div>
 """, unsafe_allow_html=True)
+
 st.write("")  # petit espace
 
 def L(fr, en, lang):
@@ -47,8 +97,8 @@ def image_or_note(path, label):
 DATA = {
   "profile": {
     "name": "Martin Junior SOUOP",
-    "titleFR": "Consultant Data / Finance / SAP BI (Junior)",
-    "titleEN": "Junior Data / Finance / SAP BI Consultant",
+    "titleFR": "Consultant Data & Finance — Compétences techniques & commerciales",
+    "titleEN": "Data & Finance Consultant — Technical & Commercial Skillset",
     "location": "Paris, France",
     "email": "martin.souop@groupe-esigelec.org",
     "phone": "+33 7 80 25 50 91",
